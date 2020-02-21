@@ -1,0 +1,10 @@
+<library path="lib/libstaleness_nodelet_pub">
+  <class name="staleness/Producer" type="staleness::Producer" base_class_type="nodelet::Nodelet">
+    <description/>
+  </class>
+</library>
+<library path="lib/libstaleness_nodelet_sub">
+  <class name="staleness/Consumer" type="staleness::Consumer" base_class_type="nodelet::Nodelet">
+    <description/>
+  </class>
+</library>

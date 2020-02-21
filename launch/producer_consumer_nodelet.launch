@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="manager" args="manager" output="screen" clear_params="true"/>
+  
+  <node pkg="nodelet" type="nodelet" name="staleness_producer" args="load staleness/Producer manager" clear_params="true" output="screen"/>
+
+  <node pkg="nodelet" type="nodelet" name="staleness_consumer" args="load staleness/Consumer manager" clear_params="true" output="screen"/>
+</launch>
