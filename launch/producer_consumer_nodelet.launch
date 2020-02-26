@@ -1,7 +1,25 @@
 <launch>
-  <node pkg="nodelet" type="nodelet" name="manager" args="manager" output="screen" clear_params="true"/>
-  
-  <node pkg="nodelet" type="nodelet" name="staleness_producer" args="load staleness/Producer manager" clear_params="true" output="screen"/>
+  <arg name="producer_type" default="nodelet"/> <!-- nodelet, node_cpp, node_py -->
+  <arg name="consumer_tpye" default="nodelet"/> <!-- nodelet, node_cpp, node_py -->
 
-  <node pkg="nodelet" type="nodelet" name="staleness_consumer" args="load staleness/Consumer manager" clear_params="true" output="screen"/>
+  <node pkg="nodelet" type="nodelet" name="manager"
+        args="manager" output="screen" clear_params="true"
+        if="$(eval producer_type == 'nodelet' or consumer_type == 'nodelet')"/>
+  
+  <node pkg="nodelet" type="nodelet" name="staleness_producer"
+        args="load staleness/Producer manager" clear_params="true" output="screen"
+        if="$(eval producer_type == 'nodelet')"/>
+
+  <node pkg="nodelet" type="nodelet" name="staleness_consumer"
+        args="load staleness/Consumer manager" clear_params="true" output="screen"
+        if="$(eval consumer_type == 'nodelet')"/>
+
+  <node pkg="staleness_test" type="staleness_producer_node" name="staleness_producer"
+        clear_params="true" output="screen"
+        if="$(eval producer_type == 'node_cpp')"/>
+
+  <node pkg="staleness_test" type="staleness_consumer_node" name="staleness_consumer"
+        clear_params="true" output="screen"
+        if="$(eval consumer_type == 'node_cpp')"/>
+
 </launch>
