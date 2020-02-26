@@ -22,4 +22,12 @@
         clear_params="true" output="screen"
         if="$(eval consumer_type == 'node_cpp')"/>
 
+  <node pkg="staleness_test" type="staleness_producer_node.py" name="staleness_producer"
+        clear_params="true" output="screen"
+        if="$(eval producer_type == 'node_py')"/>
+
+  <node pkg="staleness_test" type="staleness_consumer_node.py" name="staleness_consumer"
+        clear_params="true" output="screen"
+        if="$(eval consumer_type == 'node_py')"/>
+
 </launch>
