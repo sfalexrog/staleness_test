@@ -2,6 +2,9 @@
 #include <nodelet/nodelet.h>
 #include <pluginlib/class_list_macros.hpp>
 #include <sensor_msgs/Image.h>
+#include <thread>
+#include <chrono>
+
 
 namespace staleness
 {
@@ -23,9 +26,8 @@ private:
             calcStatistics();
             std::exit(0);
         }
-
         NODELET_INFO_STREAM("Processing message with staleness " << staleness);
-        ros::Duration(1.0).sleep();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 
     void calcStatistics()
