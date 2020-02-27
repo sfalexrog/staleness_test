@@ -24,7 +24,7 @@
   <node pkg="staleness_test" type="staleness_consumer_node" name="staleness_consumer"
         clear_params="true" output="screen"
         if="$(eval consumer_type == 'node_cpp')">
-    <param name="required_samples" value="$(arg sample_size"/>
+    <param name="required_samples" value="$(arg sample_size)"/>
   </node>
 
   <node pkg="staleness_test" type="staleness_producer_node.py" name="staleness_producer"
