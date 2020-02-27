@@ -1,6 +1,7 @@
 <launch>
   <arg name="producer_type" default="nodelet"/> <!-- nodelet, node_cpp, node_py -->
-  <arg name="consumer_tpye" default="nodelet"/> <!-- nodelet, node_cpp, node_py -->
+  <arg name="consumer_type" default="nodelet"/> <!-- nodelet, node_cpp, node_py, node_py_largebuf -->
+  <arg name="sample_size" default="25"/>
 
   <node pkg="nodelet" type="nodelet" name="manager"
         args="manager" output="screen" clear_params="true"
@@ -12,7 +13,9 @@
 
   <node pkg="nodelet" type="nodelet" name="staleness_consumer"
         args="load staleness/Consumer manager" clear_params="true" output="screen"
-        if="$(eval consumer_type == 'nodelet')"/>
+        if="$(eval consumer_type == 'nodelet')">
+    <param name="required_samples" value="$(arg sample_size)"/>
+  </node>
 
   <node pkg="staleness_test" type="staleness_producer_node" name="staleness_producer"
         clear_params="true" output="screen"
@@ -20,7 +23,9 @@
 
   <node pkg="staleness_test" type="staleness_consumer_node" name="staleness_consumer"
         clear_params="true" output="screen"
-        if="$(eval consumer_type == 'node_cpp')"/>
+        if="$(eval consumer_type == 'node_cpp')">
+    <param name="required_samples" value="$(arg sample_size"/>
+  </node>
 
   <node pkg="staleness_test" type="staleness_producer_node.py" name="staleness_producer"
         clear_params="true" output="screen"
@@ -28,6 +33,15 @@
 
   <node pkg="staleness_test" type="staleness_consumer_node.py" name="staleness_consumer"
         clear_params="true" output="screen"
-        if="$(eval consumer_type == 'node_py')"/>
+        if="$(eval consumer_type == 'node_py')">
+    <param name="required_samples" value="$(arg sample_size)"/>
+  </node>
+
+  <node pkg="staleness_test" type="staleness_consumer_node.py" name="staleness_consumer"
+        clear_params="true" output="screen"
+        if="$(eval consumer_type == 'node_py_largebuf')">
+    <param name="required_samples" value="$(arg sample_size)"/>
+    <param name="buffer_size" value="30720000"/> <!-- 640 * 480 * 100 -->
+  </node>
 
 </launch>

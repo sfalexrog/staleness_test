@@ -6,6 +6,7 @@ rospy.init_node('staleness_consumer')
 
 samples = []
 required_samples = rospy.get_param("~required_samples", default=10)
+buffer_size = rospy.get_param("~buffer_size", rospy.topics.DEFAULT_BUFF_SIZE)
 
 
 def image_callback(msg):
@@ -27,5 +28,6 @@ def calcStatistics():
     ))
 
 
-img_sub = rospy.Subscriber('/staleness_producer/image', Image, image_callback, queue_size=1, buff_size=640*480*100)
+rospy.loginfo("Running with buff_size={}".format(buffer_size))
+img_sub = rospy.Subscriber('/staleness_producer/image', Image, image_callback, queue_size=1, buff_size=buffer_size)
 rospy.spin()
