@@ -8,17 +8,11 @@ project(staleness_test)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv_bridge
-  image_transport
   nodelet
   roscpp
   rospy
   sensor_msgs
 )
-
-## System dependencies are found with CMake's conventions
-find_package(OpenCV 3 REQUIRED COMPONENTS core)
-
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed

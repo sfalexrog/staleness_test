@@ -3,7 +3,6 @@
 #include <pluginlib/class_list_macros.hpp>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
-#include <cv_bridge/cv_bridge.h>
 
 namespace staleness
 {

@@ -5,7 +5,6 @@
 #include <thread>
 #include <chrono>
 
-
 namespace staleness
 {
 class Consumer : public nodelet::Nodelet
