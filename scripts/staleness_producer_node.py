@@ -5,7 +5,8 @@ from sensor_msgs.msg import Image
 rospy.init_node("staleness_producer")
 img_pub = rospy.Publisher("~image", Image, queue_size=1)
 
-while not rospy.is_shutdown():
+
+def timer_callback(event):
     image = Image()
     image.data = b'\0' * 640 * 480 * 3
     image.width = 640
@@ -14,4 +15,7 @@ while not rospy.is_shutdown():
     image.encoding = 'rgb8'
     image.header.stamp = rospy.Time.now()
     img_pub.publish(image)
-    rospy.sleep(0.01)
+
+
+timer = rospy.Timer(rospy.Duration(0.01), timer_callback)
+rospy.spin()
